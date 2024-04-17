@@ -25,8 +25,8 @@ const EventList = () => {
 
   const backend_all_events_url =
     userType === "Event Organizer"
-      ? `http://ec2-18-207-178-206.compute-1.amazonaws.com/api/events/my-events`
-      : `http://ec2-18-207-178-206.compute-1.amazonaws.com/api/events/`;
+      ? `${process.env.REACT_APP_BACKEND_URL}api/events/my-events`
+      : `${process.env.REACT_APP_BACKEND_URL}api/events/`;
 
   useEffect(() => {
     const fetchEvents = async () => {

@@ -41,8 +41,12 @@ const Signup = () => {
       };
     }
 
-    const backend_signup_url = `http://ec2-18-207-178-206.compute-1.amazonaws.com/api/users/signup`;
+    const backend_signup_url = `${process.env.REACT_APP_BACKEND_URL}api/users/signup`;
+
+    console.log("backend url: ", backend_signup_url);
+
     const response = await axios.post(backend_signup_url, userData);
+    console.log("response: ", response);
 
     if (response.data.statusMessage === "User already exists") {
       toast.error("User already exists");

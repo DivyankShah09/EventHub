@@ -20,9 +20,7 @@ import java.io.InputStream;
 
 @Component
 public class S3CloudFront {
-    public String uploadImageGetUrl(String eventName, MultipartFile multipartFile) {
-//        String bucketName = "eventhub-event-images";
-//        String cloudFrontDistributionId = "E3O32Q0P596X8A";
+    public String uploadImageGetUrl(String filePath, MultipartFile multipartFile) {
 
         BasicSessionCredentials awsCredentials = new BasicSessionCredentials(AwsDetailsConstants.AWS_ACCESS_KEY, AwsDetailsConstants.AWS_SECRET_KEY, AwsDetailsConstants.SESSION_TOKEN);
 
@@ -36,16 +34,15 @@ public class S3CloudFront {
                 .withRegion(Regions.US_EAST_1)
                 .build();
 
-
-        eventName = eventName.replace(" ", "_");
         String fileName = multipartFile.getOriginalFilename();
+        filePath = filePath + fileName;
 
         try {
             InputStream inputStream = multipartFile.getInputStream();
 
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentLength(multipartFile.getSize());
-            PutObjectRequest request = new PutObjectRequest(AwsDetailsConstants.BUCKET_NAME, eventName + "/" + fileName, inputStream, metadata);
+            PutObjectRequest request = new PutObjectRequest(AwsDetailsConstants.BUCKET_NAME, filePath, inputStream, metadata);
             PutObjectResult putObjectResult = s3Client.putObject(request);
 
             // Get CloudFront distribution domain
@@ -53,7 +50,7 @@ public class S3CloudFront {
             GetDistributionResult distributionResult = cloudFrontClient.getDistribution(distributionRequest);
             String distributionDomain = distributionResult.getDistribution().getDomainName();
 
-            String url = "https://" + distributionDomain + "/" + eventName + "/" + fileName;
+            String url = "https://" + distributionDomain + "/" + filePath;
             System.out.println(url);
             return url;
         } catch (Exception e) {

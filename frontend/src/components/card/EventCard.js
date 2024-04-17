@@ -5,7 +5,7 @@ const EventCard = ({ imageUrl, name, date, time, location, price }) => {
   const callButtonFunction = () => {};
   return (
     <>
-      <div className="bg-[#d5e8ee] max-w-sm border-2 rounded-xl overflow-hidden shadow-md">
+      <div className="bg-[#d5e8ee] max-w-sm border-2 rounded-xl overflow-hidden shadow-md mx-auto">
         <img className="w-full h-52" src={imageUrl} alt={name} />
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{name}</div>

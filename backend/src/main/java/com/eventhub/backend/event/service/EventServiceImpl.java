@@ -90,7 +90,8 @@ public class EventServiceImpl implements EventService {
         Integer userId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
         Optional<EventOrganizerEntity> eventOrganizer = eventOrganizerRepository.findById(userId);
         if (userId != null) {
-            String imageUrl = s3CloudFront.uploadImageGetUrl(eventRequest.getName(), eventRequest.getImage());
+            String filePath = eventOrganizer.get().getId()+"_"+eventOrganizer.get().getBusinessName()+"_"+eventRequest.getName().replace(" ", "_") + "/";
+            String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, eventRequest.getImage());
             EventEntity event = new EventEntity();
             event.setEventOrganizer(eventOrganizer.get());
             event.setName(eventRequest.getName());
@@ -109,7 +110,7 @@ public class EventServiceImpl implements EventService {
                 String emailSubject = emailMessages.getNewEventEmailSubject(event.getLocation());
                 String emailMessage = emailMessages.getNewEventEmailMessage(customerEntity.getName(), event.getLocation(), event);
 
-                sendEmailToSubscriber.sendEmailToSubsciber(emailSubject, emailMessage, customerEntity.getEmail());
+//                sendEmailToSubscriber.sendEmailToSubsciber(emailSubject, emailMessage, customerEntity.getEmail());
             }
 
 

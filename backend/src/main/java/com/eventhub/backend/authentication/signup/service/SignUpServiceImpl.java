@@ -63,7 +63,7 @@ public class SignUpServiceImpl implements SignUpService {
                 user.setPassword(PasswordEncypter.encodePassword(signUpRequest.getPassword()));
                 CustomerEntity savedUser = customerRepository.save(user);
 
-                subscribeToEmailService.subscribeToEmailService(user.getEmail());
+//                subscribeToEmailService.subscribeToEmailService(user.getEmail());
 
                 SignUpResponse signUpResponse = new SignUpResponse();
                 signUpResponse.setName(user.getName());
@@ -83,7 +83,7 @@ public class SignUpServiceImpl implements SignUpService {
                 eventOrganizer.setPassword(PasswordEncypter.encodePassword(signUpRequest.getPassword()));
                 EventOrganizerEntity savedUser = eventOrganizerRepository.save(eventOrganizer);
 
-                subscribeToEmailService.subscribeToEmailService(eventOrganizer.getEmail());
+//                subscribeToEmailService.subscribeToEmailService(eventOrganizer.getEmail());
 
                 SignUpResponse signUpResponse = new SignUpResponse();
                 signUpResponse.setName(eventOrganizer.getName());

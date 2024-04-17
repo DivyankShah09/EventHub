@@ -11,9 +11,7 @@ const BookingHistory = () => {
     navigate("/login");
   }
 
-  // const backend_booking_history_url = `http://ec2-18-207-178-206.compute-1.amazonaws.com/api/bookings/user-id`;
-  const backend_booking_history_url =
-    "http://ec2-18-207-178-206.compute-1.amazonaws.com/api/bookings/user-id";
+  const backend_booking_history_url = `${process.env.REACT_APP_BACKEND_URL}api/bookings/user-id`;
   useEffect(() => {
     const fetchBookings = async () => {
       try {

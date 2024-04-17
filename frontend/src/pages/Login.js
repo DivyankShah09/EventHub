@@ -13,14 +13,19 @@ const Login = () => {
   const navigate = useNavigate();
 
   const callLogin = async () => {
-    const backend_login_url = `http://ec2-18-207-178-206.compute-1.amazonaws.com/api/users/login`;
+    const backend_login_url = `api/users/login`;
     const userData = {
       email: email,
       password: password,
       userType: userType,
     };
 
-    const response = await axios.post(backend_login_url, userData);
+    console.log("url: ", backend_login_url);
+
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}api/users/login`,
+      userData
+    );
 
     if (response.data.statusMessage === "Invalid user credentials") {
       toast.error("Invalid user credentials");

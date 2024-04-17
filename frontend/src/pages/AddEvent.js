@@ -37,9 +37,7 @@ const AddEvent = () => {
     formData.append("location", location);
     formData.append("price", price);
 
-    // const backend_add_events_url = `http://ec2-18-207-178-206.compute-1.amazonaws.com/api/events/save-event`;
-    const backend_add_events_url =
-      "http://ec2-18-207-178-206.compute-1.amazonaws.com/api/events/save-event";
+    const backend_add_events_url = `${process.env.REACT_APP_BACKEND_URL}api/events/save-event`;
 
     const response = await axios.post(backend_add_events_url, formData, {
       headers: {

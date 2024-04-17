@@ -65,7 +65,7 @@ public class BookingServiceImpl implements BookingService {
 
                 String emailMessage = emailMessages.getBookingEmailMessage(customerEntity.get().getName(), event.get().getName(), savedBookingEntity);
 
-                sendEmailToSubscriber.sendEmailToSubsciber(emailSubject, emailMessage, customerEntity.get().getEmail());
+//                sendEmailToSubscriber.sendEmailToSubsciber(emailSubject, emailMessage, customerEntity.get().getEmail());
 
                 return new HttpResponseSuccess<BookingEntity>(HttpStatus.OK.value(), "Event booked successfully", bookingEntity);
             } else {

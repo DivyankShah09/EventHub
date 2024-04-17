@@ -4,11 +4,24 @@ import axios from "axios";
 import SubmitButton from "../components/button/SubmitButton";
 import TextInput from "../components/input/TextInput";
 import { ToastContainer, toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCalendar,
+  faClockFour,
+  faDollar,
+  faLocation,
+  faLocationArrow,
+  faLocationCrosshairs,
+  faLocationDot,
+  faMapLocation,
+  faMoneyBill,
+  faMoneyBill1,
+  faMoneyCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
 const EventDetails = () => {
   const { id } = useParams();
-  // const backend_event_details_url = `http://ec2-18-207-178-206.compute-1.amazonaws.com/api/events?${id}`;
-  const backend_event_details_url = `http://ec2-18-207-178-206.compute-1.amazonaws.com/api/events?${id}`;
+  const backend_event_details_url = `${process.env.REACT_APP_BACKEND_URL}api/events?${id}`;
   const token = localStorage.getItem("token");
   const userType = localStorage.getItem("userType");
   const [event, setEvent] = useState();
@@ -61,48 +74,98 @@ const EventDetails = () => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const weekdays = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const date = new Date(dateString);
+    const weekday = weekdays[date.getDay()];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    return `${weekday}, ${month} ${day}`;
+  };
+
   return (
     <>
       <ToastContainer />
       <div className="my-20 w-full px-10">
-        <div className="w-full lg:w-1/2 border drop-shadow-xl mx-auto bg-[#d5e8ee] p-8 rounded-lg">
+        <div className="w-full mx-auto p-8 rounded-lg">
           <img
-            className="h-80 w-full mb-6 mx-auto"
+            className="h-[60vh] mb-6 mx-auto"
             src={event?.imageUrl}
             alt={event?.name}
           />
-
-          <h1 className="text-3xl font-bold mb-4 text-center">{event?.name}</h1>
           <div>
+            <p>{formatDate(event?.date)}</p>
+          </div>
+          <h1 className="text-4xl font-bold mb-4">{event?.name}</h1>
+
+          <div className="mt-5">
+            <h2 className="text-2xl font-bold mb-2">Date and time</h2>
+            <ul>
+              <li>
+                <FontAwesomeIcon icon={faCalendar} />{" "}
+                {formatDate(event?.date) +
+                  ", " +
+                  new Date(event?.date).getFullYear()}
+              </li>
+              <li>
+                <FontAwesomeIcon icon={faClockFour} /> {event?.time}
+              </li>
+            </ul>
+          </div>
+
+          <div className="mt-5">
+            <h2 className="text-2xl font-bold mb-2">Location</h2>
+            <p>
+              <FontAwesomeIcon icon={faLocationDot} /> {event?.location}
+            </p>
+          </div>
+
+          <div className="mt-5">
+            <h2 className="text-2xl font-bold mb-2">Refund Policy</h2>
+            <p>No refund policy</p>
+          </div>
+
+          <div className="mt-5">
+            <h2 className="text-2xl font-bold mb-2">Price</h2>
+            <p>
+              <FontAwesomeIcon icon={faMoneyBill1} /> {"$" + event?.price}
+            </p>
+          </div>
+
+          <div className="mt-5">
+            <h2 className="text-2xl font-bold mb-2">About this event</h2>
             <p>{event?.description}</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-4 mx-auto w-full">
-            <div>
-              <p>
-                <b>Date: </b>
-                {event?.date}
-              </p>
-            </div>
-            <div>
-              <p>
-                <b>Time: </b>
-                {event?.time}
-              </p>
-            </div>
-            <div>
-              <p>
-                <b>Location: </b>
-                {event?.location}
-              </p>
-            </div>
-            <div>
-              <p>
-                <b>Price: </b>
-                {event?.price}
-              </p>
+          <div className="mt-5">
+            <h2 className="text-2xl font-bold mb-2">Organized By</h2>
+            <div className="bg-[#d5e8ee]">
+              <p>event organizer details here</p>
             </div>
           </div>
+
           {userType === "Event Organizer" ? (
             ""
           ) : (
