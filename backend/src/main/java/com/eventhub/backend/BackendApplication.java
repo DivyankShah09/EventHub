@@ -41,8 +41,8 @@ public class BackendApplication {
         String databasePassword = "div123!!!";
         String jwtSecretKey = "xBrexmbxkkI3L0Dd8wY9EHjpYq6nqqYVOpUr1vtbVFHD9avKZtyfujRCndbcASasbJUZeceG62nacNtDrm3Q2oTDtnIjAcMXVZ";
         String snsTopicArn = "";
-        String bucketName = "eventhub-image-bucket";
-        String cloudFrontDistributionId = "EPX7E1ZTNS8UZ";
+        String bucketName = "eventhub-event-image-bucket";
+        String cloudFrontDistributionId = "E24ONSGIU8SZ2P";
 
         AwsDetailsConstants.AWS_ACCESS_KEY = awsAccessKey;
         AwsDetailsConstants.AWS_SECRET_KEY = awsSecretKey;
@@ -64,4 +64,4 @@ public class BackendApplication {
 
 
 //args
-//ASIA6GBMBALO565UWHXP kMx7oRMlDXdoc/QmpzFNzsQ100xbuNA0Df9wtQoI IQoJb3JpZ2luX2VjEKT//////////wEaCXVzLXdlc3QtMiJHMEUCIEUu6+180F8NC86K3tqyHgZk7bs4W+itoA4Y+b0s5i73AiEAhaIkWBZpARmsRnouk6nYZryL5GHZLMhlsVhIrUD+CWIqsgII3f//////////ARAAGgw5NzUwNDk5MTcxNDkiDKrr7uw3VROYTH7BfSqGAn25mRelbEAPNMAdqBLRDnn4b7gEGDDsX+1L1wJaOHR3WOy26lUAtD8OVO0nfvlv5NR3q8iKq+6DCb8t3e5WCn0auV5+Ynwx/6ogcxRejmww2YGQyv7fCjlxeK+Q7FJfbC4ZgBnqgYRca8ykKewtagVKQRA0vGXmJMX3zYNVE8LPnA+HzW9USd3ZXZSA+LnKeO8nSSQoNDaJ6C54OjDWEh5t5PwGkYhqu7Azojptmp8Diy5aK76UKT8GIsehOxMLQM/MQGgMnP0yJNkWVRMTVqf8FiU5XM1K7gziUiRVWWACjsmDB8xn8d0wE6ePWPBAFH+SVUdf2m7/c/NjaX+NUSwRYCWvgE0w8tmAsQY6nQEOFP7ST+gb6wY1CtVqrY1NG/X15UJgZ4Az9aAQIrB5Zn9rfGJMCZjmx4/I+fA0/yZK0ffgoNoKyw4GTZkCmxqtx8oD627w5Z7ytWCsBEL6UfFL+QXTuG43kYk7y2vjVmhLrPQ2EMtCFh/cWpNRGhRcnngCGWVxuTWgbgR6woqk+9Ik3CL5pzlyi7wFLEP4xuzLRCLR5kX+9z3nHe/v
+//ASIA6GBMBALOYPTJZBBS /eJnec+gRzqA0jn5Xtt+/arBaliDh5AoexrDPV7u IQoJb3JpZ2luX2VjELr//////////wEaCXVzLXdlc3QtMiJHMEUCIBxC8qXJAVN8izGAytO+0Mu5G6wGokC2uJk56bzEOMAbAiEAzitKzaLMwfBt9jYJ63gLJGuQNLU8OgFopToc6sKgyFMqsgII8///////////ARAAGgw5NzUwNDk5MTcxNDkiDGhiQ5qELe68gR4CqiqGAt+P5H+L8DkLHA7/mjfn4KrOUsfNYqD5Gu1gH/N8p+FXIJQ+H0A4vMCec6rv7DqtfC6+wxv74uZ85I+p9SimYUOSGaYATnax3Drq1Sea8blq+fvBLrBUIB5psFXFSPWBclP0bKb5v0pv45IRUPI0mSXcToPUA7DbVPpj6H8jA6plovC3po6MCZgtGRwFGHBZeSvx9zxWlBORmCv53Xp/7nrqo90FIarSEX+Q975BdSHMqeDFY2Kv3h/SuzNzeNqlrmm2hwPRso1ZE0jqpvgFUVN/It+EziNPbvunwT9j0g+g0N4JH0ezqUOmSM62b2P+3m0R9/bjFUOGF4LDmUD8RSCswY8pis0w/saFsQY6nQG86d4TeHqx3Pejyrqj7LDH0MjG6awxr/Z7ZFHc+kc9bsZXf0ipHmurg5axvsNayYeTdc8/NdhZE6WTb/XZSMrqnuZXSzfmgPwYpneAGF+nEFLGrOlfhe8lilmmLY9A+1OMqBhEwi88kaYA/Z9F+3UF6FVsdP7CdHEBN9NU68Id8R3ptZOvsVZWEk+MbnGRUcUEmjDR4FVIC7OrU/ZN

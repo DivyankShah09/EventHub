@@ -35,7 +35,7 @@ public class S3CloudFront {
                 .build();
 
         String fileName = multipartFile.getOriginalFilename();
-        filePath = filePath + fileName;
+        filePath = filePath.concat(fileName);
 
         try {
             InputStream inputStream = multipartFile.getInputStream();

@@ -31,10 +31,13 @@ public class CustomerEntity implements UserEntity {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "profilePictureUrl")
+    private String profilePictureUrl;
+
     public CustomerEntity() {
     }
 
-    public CustomerEntity(String name, String email, String mobileNumber, int age, String gender, String city, String password) {
+    public CustomerEntity(String name, String email, String mobileNumber, int age, String gender, String city, String password, String profilePictureUrl) {
         this.name = name;
         this.email = email;
         this.mobileNumber = mobileNumber;
@@ -42,6 +45,7 @@ public class CustomerEntity implements UserEntity {
         this.gender = gender;
         this.city = city;
         this.password = password;
+        this.profilePictureUrl = profilePictureUrl;
     }
 
     @Override
@@ -112,6 +116,14 @@ public class CustomerEntity implements UserEntity {
         this.password = password;
     }
 
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
+    }
+
     @Override
     public String toString() {
         return "CustomerEntity{" +
@@ -123,6 +135,7 @@ public class CustomerEntity implements UserEntity {
                 ", gender='" + gender + '\'' +
                 ", city='" + city + '\'' +
                 ", password='" + password + '\'' +
+                ", profilePictureUrl='" + profilePictureUrl + '\'' +
                 '}';
     }
 }

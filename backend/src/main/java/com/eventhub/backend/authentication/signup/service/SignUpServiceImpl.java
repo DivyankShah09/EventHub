@@ -10,6 +10,7 @@ import com.eventhub.backend.utils.awsemailservice.EmailMessages;
 import com.eventhub.backend.utils.awsemailservice.SubscribeEmailToSNSTopic;
 import com.eventhub.backend.utils.enums.UserRole;
 import com.eventhub.backend.utils.httpresponse.HttpResponseSuccess;
+import com.eventhub.backend.utils.imageservice.S3CloudFront;
 import com.eventhub.backend.utils.jwt.JWTAuthentication;
 import com.eventhub.backend.utils.passwordencrcyption.PasswordEncypter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class SignUpServiceImpl implements SignUpService {
 
     @Autowired
     EmailMessages emailMessages;
+    @Autowired
+    S3CloudFront s3CloudFront;
 
     @Override
     public HttpResponseSuccess<SignUpResponse> signUp(SignUpRequest signUpRequest) {
@@ -52,6 +55,8 @@ public class SignUpServiceImpl implements SignUpService {
             return new HttpResponseSuccess<>(HttpStatus.BAD_REQUEST.value(), "User already exists", null);
         } else {
             if (userType.toLowerCase().equals(UserRole.user.toString())) {
+                String filePath = "user/"+signUpRequest.getEmail()+ "/";
+                String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, signUpRequest.getImage());
                 CustomerEntity user = new CustomerEntity();
                 user.setName(signUpRequest.getName());
                 user.setEmail(signUpRequest.getEmail());
@@ -59,6 +64,7 @@ public class SignUpServiceImpl implements SignUpService {
                 user.setGender(signUpRequest.getGender());
                 user.setMobileNumber(signUpRequest.getMobileNumber());
                 user.setCity(signUpRequest.getCity());
+                user.setProfilePictureUrl(imageUrl);
 
                 user.setPassword(PasswordEncypter.encodePassword(signUpRequest.getPassword()));
                 CustomerEntity savedUser = customerRepository.save(user);
@@ -74,11 +80,14 @@ public class SignUpServiceImpl implements SignUpService {
 
                 return new HttpResponseSuccess<>(HttpStatus.OK.value(), "Account created Successfully", signUpResponse);
             } else {
+                String filePath = "event-organizer/"+signUpRequest.getEmail()+ "/";
+                String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, signUpRequest.getImage());
                 EventOrganizerEntity eventOrganizer = new EventOrganizerEntity();
                 eventOrganizer.setName(signUpRequest.getName());
                 eventOrganizer.setEmail(signUpRequest.getEmail());
                 eventOrganizer.setMobileNumber(signUpRequest.getMobileNumber());
                 eventOrganizer.setBusinessName(signUpRequest.getBusinessName());
+                eventOrganizer.setProfilePictureUrl(imageUrl);
 
                 eventOrganizer.setPassword(PasswordEncypter.encodePassword(signUpRequest.getPassword()));
                 EventOrganizerEntity savedUser = eventOrganizerRepository.save(eventOrganizer);

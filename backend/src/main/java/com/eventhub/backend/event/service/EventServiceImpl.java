@@ -7,6 +7,7 @@ import com.eventhub.backend.authentication.common.repository.EventOrganizerRepos
 import com.eventhub.backend.event.entity.EventEntity;
 import com.eventhub.backend.event.repository.EventRepository;
 import com.eventhub.backend.event.request.EventRequest;
+import com.eventhub.backend.utils.AwsDetailsConstants;
 import com.eventhub.backend.utils.awsemailservice.EmailMessages;
 import com.eventhub.backend.utils.awsemailservice.SendEmailToSubscriber;
 import com.eventhub.backend.utils.httpresponse.HttpResponseSuccess;
@@ -90,7 +91,7 @@ public class EventServiceImpl implements EventService {
         Integer userId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
         Optional<EventOrganizerEntity> eventOrganizer = eventOrganizerRepository.findById(userId);
         if (userId != null) {
-            String filePath = eventOrganizer.get().getId()+"_"+eventOrganizer.get().getBusinessName()+"_"+eventRequest.getName().replace(" ", "_") + "/";
+            String filePath = "event/"+eventOrganizer.get().getId()+"_"+eventOrganizer.get().getBusinessName()+"_"+eventRequest.getName().replace(" ", "_") + "/";
             String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, eventRequest.getImage());
             EventEntity event = new EventEntity();
             event.setEventOrganizer(eventOrganizer.get());

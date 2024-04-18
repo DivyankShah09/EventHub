@@ -1,5 +1,7 @@
 package com.eventhub.backend.authentication.signup.request;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class SignUpRequest {
     private Integer id;
 
@@ -20,32 +22,9 @@ public class SignUpRequest {
     private String city;
 
     private String password;
+    private MultipartFile image;
 
     public SignUpRequest() {
-    }
-
-    public SignUpRequest(Integer id, String name, String businessName, String email, String userType, String mobileNumber, int age, String gender, String city, String password) {
-        this.id = id;
-        this.name = name;
-        this.businessName = businessName;
-        this.email = email;
-        this.userType = userType;
-        this.mobileNumber = mobileNumber;
-        this.age = age;
-        this.gender = gender;
-        this.city = city;
-        this.password = password;
-    }
-
-    public SignUpRequest(Integer id, String name, String email, String userType, String mobileNumber, int age, String gender, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.userType = userType;
-        this.mobileNumber = mobileNumber;
-        this.age = age;
-        this.gender = gender;
-        this.password = password;
     }
 
     public Integer getId() {
@@ -128,6 +107,14 @@ public class SignUpRequest {
         this.password = password;
     }
 
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "SignUpRequest{" +
@@ -141,6 +128,7 @@ public class SignUpRequest {
                 ", gender='" + gender + '\'' +
                 ", city='" + city + '\'' +
                 ", password='" + password + '\'' +
+                ", image=" + image +
                 '}';
     }
 }

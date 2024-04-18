@@ -24,17 +24,22 @@ public class EventOrganizerEntity implements UserEntity {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "profilePictureUrl")
+    private String profilePictureUrl;
+
     public EventOrganizerEntity() {
     }
 
-    public EventOrganizerEntity(String name, String businessName, String email, String mobileNumber, String password) {
+    public EventOrganizerEntity(String name, String businessName, String email, String mobileNumber, String password, String profilePictureUrl) {
         this.name = name;
         this.businessName = businessName;
         this.email = email;
         this.mobileNumber = mobileNumber;
         this.password = password;
+        this.profilePictureUrl = profilePictureUrl;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -43,6 +48,7 @@ public class EventOrganizerEntity implements UserEntity {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -59,6 +65,7 @@ public class EventOrganizerEntity implements UserEntity {
         this.businessName = businessName;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
@@ -75,12 +82,21 @@ public class EventOrganizerEntity implements UserEntity {
         this.mobileNumber = mobileNumber;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
     }
 
     @Override
@@ -92,6 +108,7 @@ public class EventOrganizerEntity implements UserEntity {
                 ", email='" + email + '\'' +
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", password='" + password + '\'' +
+                ", profilePictureUrl='" + profilePictureUrl + '\'' +
                 '}';
     }
 }

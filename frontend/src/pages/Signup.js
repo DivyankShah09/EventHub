@@ -15,37 +15,42 @@ const Signup = () => {
   const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState("");
+  const [profileImage, setProfileImage] = useState(
+    "https://cdn.pixabay.com/photo/2021/10/11/00/59/upload-6699084_1280.png"
+  );
+
+  const handleProfilePictureChange = (e) => {
+    setProfileImage(e.target.files[0]);
+  };
   const navigate = useNavigate();
 
   const callSignUp = async () => {
-    let userData;
+    const formData = new FormData();
+    formData.append("image", profileImage);
+
     if (userType === "User") {
-      userData = {
-        name: name,
-        mobileNumber: mobileNumber,
-        gender: gender,
-        age: age,
-        city: city,
-        email: email,
-        password: password,
-        userType: userType,
-      };
+      formData.append("name", name);
+      formData.append("mobileNumber", mobileNumber);
+      formData.append("gender", gender);
+      formData.append("age", age);
+      formData.append("city", city);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("userType", userType);
     } else {
-      userData = {
-        name: name,
-        mobileNumber: mobileNumber,
-        businessName: businessName,
-        email: email,
-        password: password,
-        userType: userType,
-      };
+      formData.append("name", name);
+      formData.append("mobileNumber", mobileNumber);
+      formData.append("businessName", businessName);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("userType", userType);
     }
 
     const backend_signup_url = `${process.env.REACT_APP_BACKEND_URL}api/users/signup`;
 
     console.log("backend url: ", backend_signup_url);
 
-    const response = await axios.post(backend_signup_url, userData);
+    const response = await axios.post(backend_signup_url, formData);
     console.log("response: ", response);
 
     if (response.data.statusMessage === "User already exists") {
@@ -128,6 +133,27 @@ const Signup = () => {
               />
             </>
           )}
+
+          <div className="mb-8 h-fit rounded-lg bg-white p-8 shadow-md">
+            <h2 className="mb-4 text-2xl font-bold">Profile Picture</h2>
+            {profileImage && (
+              <div className="mt-4">
+                <img
+                  src={profileImage}
+                  alt="Profile"
+                  className="mx-auto object-cover"
+                />
+              </div>
+            )}
+            <input
+              type="file"
+              id="profile_picture"
+              name="profile_picture"
+              accept="image/*"
+              className="mt-2 block w-full"
+              onChange={handleProfilePictureChange}
+            />
+          </div>
 
           <SubmitButton buttonName="Signup" callButtonFunction={callSignUp} />
           <p className="cursor-pointer text-center">
