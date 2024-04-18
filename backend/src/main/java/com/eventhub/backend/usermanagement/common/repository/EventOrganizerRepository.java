@@ -1,6 +1,6 @@
-package com.eventhub.backend.authentication.common.repository;
+package com.eventhub.backend.usermanagement.common.repository;
 
-import com.eventhub.backend.authentication.common.entity.EventOrganizerEntity;
+import com.eventhub.backend.usermanagement.common.entity.EventOrganizerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

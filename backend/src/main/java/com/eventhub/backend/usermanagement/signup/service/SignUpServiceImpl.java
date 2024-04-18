@@ -1,11 +1,11 @@
-package com.eventhub.backend.authentication.signup.service;
+package com.eventhub.backend.usermanagement.signup.service;
 
-import com.eventhub.backend.authentication.common.entity.CustomerEntity;
-import com.eventhub.backend.authentication.common.entity.EventOrganizerEntity;
-import com.eventhub.backend.authentication.common.repository.CustomerRepository;
-import com.eventhub.backend.authentication.common.repository.EventOrganizerRepository;
-import com.eventhub.backend.authentication.signup.request.SignUpRequest;
-import com.eventhub.backend.authentication.signup.response.SignUpResponse;
+import com.eventhub.backend.usermanagement.common.entity.CustomerEntity;
+import com.eventhub.backend.usermanagement.common.entity.EventOrganizerEntity;
+import com.eventhub.backend.usermanagement.common.repository.CustomerRepository;
+import com.eventhub.backend.usermanagement.common.repository.EventOrganizerRepository;
+import com.eventhub.backend.usermanagement.signup.request.SignUpRequest;
+import com.eventhub.backend.usermanagement.signup.response.SignUpResponse;
 import com.eventhub.backend.utils.awsemailservice.EmailMessages;
 import com.eventhub.backend.utils.awsemailservice.SubscribeEmailToSNSTopic;
 import com.eventhub.backend.utils.enums.UserRole;

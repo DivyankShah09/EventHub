@@ -11,6 +11,8 @@ import EventDetails from "./pages/EventDetails";
 import AddEvent from "./pages/AddEvent";
 import BookingHistory from "./pages/BookingHistory";
 import Footer from "./components/footer/Footer";
+import CustomerProfile from "./pages/CustomerProfile";
+import EventOrganizerProfile from "./pages/EventOrganizerProfile";
 
 function App() {
   return (
@@ -28,6 +30,11 @@ function App() {
           <Route path="/event-details/:id" element={<EventDetails />} />
           <Route path="/add-event" element={<AddEvent />} />
           <Route path="/history" element={<BookingHistory />} />
+          <Route path="/customer-profile/:id" element={<CustomerProfile />} />
+          <Route
+            path="/event-organizer-profile/:id"
+            element={<EventOrganizerProfile />}
+          />
         </Routes>
         <Footer />
       </Router>

@@ -10,6 +10,7 @@ import {
 const Navbar = () => {
   const storedToken = localStorage.getItem("token");
   const storedUserType = localStorage.getItem("userType");
+  const userId = localStorage.getItem("userId");
   const [dropDownMenu, setDropDownMenu] = useState(false);
   const navigate = useNavigate();
   let Links = [
@@ -31,6 +32,14 @@ const Navbar = () => {
     localStorage.removeItem("userId");
     setDropDownMenu(false);
     navigate("/login");
+  };
+
+  const handleProfile = () => {
+    if (localStorage.getItem("userType") === "Event Organizer") {
+      navigate(`/event-organizer-profile/id=${userId}`);
+    } else {
+      navigate(`/customer-profile/id=${userId}`);
+    }
   };
   return (
     <>
@@ -80,6 +89,11 @@ const Navbar = () => {
                 </div>
                 {dropDownMenu && (
                   <ul className="absolute mt-2 w-28 rounded-lg bg-white shadow-md md:right-[40px] md:top-[60px]">
+                    <li className="px-4 py-2">
+                      <button onClick={handleProfile} className="text-gray-800">
+                        Profile
+                      </button>
+                    </li>
                     <li className="px-4 py-2">
                       <button onClick={handleLogout} className="text-gray-800">
                         Logout

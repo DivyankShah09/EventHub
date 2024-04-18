@@ -1,4 +1,4 @@
-package com.eventhub.backend.authentication.signup.response;
+package com.eventhub.backend.usermanagement.signup.response;
 
 public class SignUpResponse {
     private Integer id;

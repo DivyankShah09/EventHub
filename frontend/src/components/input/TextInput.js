@@ -1,5 +1,12 @@
 import React from "react";
-const TextInput = ({ className, type, placeholderText, value, onChange }) => {
+const TextInput = ({
+  className,
+  type,
+  placeholderText,
+  value,
+  onChange,
+  disabled = false,
+}) => {
   return (
     <div className="flex flex-col py-2">
       <input
@@ -10,6 +17,7 @@ const TextInput = ({ className, type, placeholderText, value, onChange }) => {
         onChange={(e) => {
           onChange && onChange(e.target.value);
         }}
+        disabled={disabled}
       ></input>
     </div>
   );

@@ -1,10 +1,10 @@
-package com.eventhub.backend.authentication.login.service;
+package com.eventhub.backend.usermanagement.login.service;
 
-import com.eventhub.backend.authentication.common.entity.UserEntity;
-import com.eventhub.backend.authentication.common.repository.CustomerRepository;
-import com.eventhub.backend.authentication.common.repository.EventOrganizerRepository;
-import com.eventhub.backend.authentication.login.request.LoginRequest;
-import com.eventhub.backend.authentication.login.response.LoginResponse;
+import com.eventhub.backend.usermanagement.common.entity.UserEntity;
+import com.eventhub.backend.usermanagement.common.repository.CustomerRepository;
+import com.eventhub.backend.usermanagement.common.repository.EventOrganizerRepository;
+import com.eventhub.backend.usermanagement.login.request.LoginRequest;
+import com.eventhub.backend.usermanagement.login.response.LoginResponse;
 import com.eventhub.backend.utils.enums.UserRole;
 import com.eventhub.backend.utils.httpresponse.HttpResponseSuccess;
 import com.eventhub.backend.utils.imageservice.S3CloudFront;

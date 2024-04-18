@@ -1,4 +1,4 @@
-package com.eventhub.backend.authentication.login.request;
+package com.eventhub.backend.usermanagement.login.request;
 
 public class LoginRequest {
     private String email;

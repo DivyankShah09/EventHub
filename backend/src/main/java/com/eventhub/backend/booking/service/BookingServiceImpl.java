@@ -1,7 +1,7 @@
 package com.eventhub.backend.booking.service;
 
-import com.eventhub.backend.authentication.common.entity.CustomerEntity;
-import com.eventhub.backend.authentication.common.repository.CustomerRepository;
+import com.eventhub.backend.usermanagement.common.entity.CustomerEntity;
+import com.eventhub.backend.usermanagement.common.repository.CustomerRepository;
 import com.eventhub.backend.booking.entity.BookingEntity;
 import com.eventhub.backend.booking.repository.BookingRepository;
 import com.eventhub.backend.booking.request.BookingRequest;

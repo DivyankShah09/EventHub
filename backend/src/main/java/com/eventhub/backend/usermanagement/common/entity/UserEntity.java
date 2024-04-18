@@ -1,4 +1,4 @@
-package com.eventhub.backend.authentication.common.entity;
+package com.eventhub.backend.usermanagement.common.entity;
 
 public interface UserEntity {
     Integer getId();

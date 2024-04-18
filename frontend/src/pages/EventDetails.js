@@ -28,7 +28,7 @@ const EventDetails = () => {
   const [noOfTickets, setNoOfTickets] = useState();
 
   useEffect(() => {
-    const getUser = async () => {
+    const getEvent = async () => {
       try {
         const response = await axios.get(backend_event_details_url, {
           headers: {
@@ -41,7 +41,7 @@ const EventDetails = () => {
       }
     };
 
-    getUser();
+    getEvent();
   }, [id]);
 
   const callBookEvent = async () => {

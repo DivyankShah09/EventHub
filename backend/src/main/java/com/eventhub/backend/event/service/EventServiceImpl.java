@@ -1,13 +1,12 @@
 package com.eventhub.backend.event.service;
 
-import com.eventhub.backend.authentication.common.entity.CustomerEntity;
-import com.eventhub.backend.authentication.common.entity.EventOrganizerEntity;
-import com.eventhub.backend.authentication.common.repository.CustomerRepository;
-import com.eventhub.backend.authentication.common.repository.EventOrganizerRepository;
+import com.eventhub.backend.usermanagement.common.entity.CustomerEntity;
+import com.eventhub.backend.usermanagement.common.entity.EventOrganizerEntity;
+import com.eventhub.backend.usermanagement.common.repository.CustomerRepository;
+import com.eventhub.backend.usermanagement.common.repository.EventOrganizerRepository;
 import com.eventhub.backend.event.entity.EventEntity;
 import com.eventhub.backend.event.repository.EventRepository;
 import com.eventhub.backend.event.request.EventRequest;
-import com.eventhub.backend.utils.AwsDetailsConstants;
 import com.eventhub.backend.utils.awsemailservice.EmailMessages;
 import com.eventhub.backend.utils.awsemailservice.SendEmailToSubscriber;
 import com.eventhub.backend.utils.httpresponse.HttpResponseSuccess;

@@ -1,7 +1,7 @@
-package com.eventhub.backend.authentication.signup.service;
+package com.eventhub.backend.usermanagement.signup.service;
 
-import com.eventhub.backend.authentication.signup.request.SignUpRequest;
-import com.eventhub.backend.authentication.signup.response.SignUpResponse;
+import com.eventhub.backend.usermanagement.signup.request.SignUpRequest;
+import com.eventhub.backend.usermanagement.signup.response.SignUpResponse;
 import com.eventhub.backend.utils.httpresponse.HttpResponseSuccess;
 
 public interface SignUpService {

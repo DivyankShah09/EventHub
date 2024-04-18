@@ -1,8 +1,8 @@
-package com.eventhub.backend.authentication.login.controller;
+package com.eventhub.backend.usermanagement.login.controller;
 
-import com.eventhub.backend.authentication.login.request.LoginRequest;
-import com.eventhub.backend.authentication.login.response.LoginResponse;
-import com.eventhub.backend.authentication.login.service.LoginService;
+import com.eventhub.backend.usermanagement.login.request.LoginRequest;
+import com.eventhub.backend.usermanagement.login.response.LoginResponse;
+import com.eventhub.backend.usermanagement.login.service.LoginService;
 import com.eventhub.backend.utils.httpresponse.HttpResponseSuccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

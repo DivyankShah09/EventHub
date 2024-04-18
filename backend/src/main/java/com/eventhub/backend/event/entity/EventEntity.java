@@ -1,6 +1,6 @@
 package com.eventhub.backend.event.entity;
 
-import com.eventhub.backend.authentication.common.entity.EventOrganizerEntity;
+import com.eventhub.backend.usermanagement.common.entity.EventOrganizerEntity;
 
 import javax.persistence.*;
 import java.sql.Date;

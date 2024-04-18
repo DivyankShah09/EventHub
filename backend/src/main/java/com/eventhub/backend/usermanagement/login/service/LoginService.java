@@ -1,7 +1,7 @@
-package com.eventhub.backend.authentication.login.service;
+package com.eventhub.backend.usermanagement.login.service;
 
-import com.eventhub.backend.authentication.login.request.LoginRequest;
-import com.eventhub.backend.authentication.login.response.LoginResponse;
+import com.eventhub.backend.usermanagement.login.request.LoginRequest;
+import com.eventhub.backend.usermanagement.login.response.LoginResponse;
 import com.eventhub.backend.utils.httpresponse.HttpResponseSuccess;
 
 public interface LoginService {

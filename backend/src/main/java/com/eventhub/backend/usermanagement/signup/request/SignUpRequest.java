@@ -1,4 +1,4 @@
-package com.eventhub.backend.authentication.signup.request;
+package com.eventhub.backend.usermanagement.signup.request;
 
 import org.springframework.web.multipart.MultipartFile;
 

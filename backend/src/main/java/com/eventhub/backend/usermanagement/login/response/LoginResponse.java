@@ -1,4 +1,4 @@
-package com.eventhub.backend.authentication.login.response;
+package com.eventhub.backend.usermanagement.login.response;
 
 public class LoginResponse {
     private Integer id;

@@ -1,6 +1,6 @@
 package com.eventhub.backend.booking.entity;
 
-import com.eventhub.backend.authentication.common.entity.CustomerEntity;
+import com.eventhub.backend.usermanagement.common.entity.CustomerEntity;
 import com.eventhub.backend.event.entity.EventEntity;
 
 import javax.persistence.*;

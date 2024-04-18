@@ -61,7 +61,3 @@ public class BackendApplication {
         System.setProperty("spring.datasource.password", databasePassword);
     }
 }
-
-
-//args
-//ASIA6GBMBALOYPTJZBBS /eJnec+gRzqA0jn5Xtt+/arBaliDh5AoexrDPV7u IQoJb3JpZ2luX2VjELr//////////wEaCXVzLXdlc3QtMiJHMEUCIBxC8qXJAVN8izGAytO+0Mu5G6wGokC2uJk56bzEOMAbAiEAzitKzaLMwfBt9jYJ63gLJGuQNLU8OgFopToc6sKgyFMqsgII8///////////ARAAGgw5NzUwNDk5MTcxNDkiDGhiQ5qELe68gR4CqiqGAt+P5H+L8DkLHA7/mjfn4KrOUsfNYqD5Gu1gH/N8p+FXIJQ+H0A4vMCec6rv7DqtfC6+wxv74uZ85I+p9SimYUOSGaYATnax3Drq1Sea8blq+fvBLrBUIB5psFXFSPWBclP0bKb5v0pv45IRUPI0mSXcToPUA7DbVPpj6H8jA6plovC3po6MCZgtGRwFGHBZeSvx9zxWlBORmCv53Xp/7nrqo90FIarSEX+Q975BdSHMqeDFY2Kv3h/SuzNzeNqlrmm2hwPRso1ZE0jqpvgFUVN/It+EziNPbvunwT9j0g+g0N4JH0ezqUOmSM62b2P+3m0R9/bjFUOGF4LDmUD8RSCswY8pis0w/saFsQY6nQG86d4TeHqx3Pejyrqj7LDH0MjG6awxr/Z7ZFHc+kc9bsZXf0ipHmurg5axvsNayYeTdc8/NdhZE6WTb/XZSMrqnuZXSzfmgPwYpneAGF+nEFLGrOlfhe8lilmmLY9A+1OMqBhEwi88kaYA/Z9F+3UF6FVsdP7CdHEBN9NU68Id8R3ptZOvsVZWEk+MbnGRUcUEmjDR4FVIC7OrU/ZN
