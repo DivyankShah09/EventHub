@@ -16,11 +16,6 @@ public class SignUpController {
     @Autowired
     SignUpService signUpService;
 
-    @GetMapping()
-    public HttpResponseSuccess<?> simpleGet() {
-        return new HttpResponseSuccess<>(HttpStatus.OK.value(), "running", "api end point working");
-    }
-
     @PostMapping(value = "/signup", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpResponseSuccess<SignUpResponse> signup(@ModelAttribute SignUpRequest signUpRequest) {
         return signUpService.signUp(signUpRequest);
