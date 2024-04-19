@@ -50,12 +50,14 @@ const EventOrganizerProfile = () => {
 
   const callUpdateProfile = async () => {
     const formData = new FormData();
-    console.log(id);
     formData.append("id", id.split("=")[1]);
-    formData.append("profilePicture", profilePicture);
+    if (typeof profilePicture !== "string") {
+      formData.append("profilePicture", profilePicture);
+    }
     formData.append("name", name);
     formData.append("email", email);
     formData.append("mobileNumber", mobileNumber);
+    formData.append("businessName", businessName);
 
     const response = await axios.post(
       backend_event_organizer_profile_update_details,

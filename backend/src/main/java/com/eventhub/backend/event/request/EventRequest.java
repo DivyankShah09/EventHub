@@ -1,34 +1,29 @@
 package com.eventhub.backend.event.request;
 
 import org.springframework.web.multipart.MultipartFile;
-
 import java.sql.Date;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class EventRequest {
     private String name;
-
     private String description;
-
     private MultipartFile image;
-
     private Date date;
-
-    private Time time;
-
+    private String time; // Assuming you want to store time as java.sql.Time object
     private String location;
-
     private String price;
 
     public EventRequest() {
     }
 
-    public EventRequest(String name, String description, MultipartFile image, Date date, Time time, String location, String price) {
+    public EventRequest(String name, String description, MultipartFile image, Date date, String time, String location, String price) {
         this.name = name;
         this.description = description;
         this.image = image;
         this.date = date;
-        this.time = time;
+        this.time = null;
         this.location = location;
         this.price = price;
     }
@@ -65,11 +60,11 @@ public class EventRequest {
         this.date = date;
     }
 
-    public Time getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -89,3 +84,4 @@ public class EventRequest {
         this.price = price;
     }
 }
+

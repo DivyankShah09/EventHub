@@ -44,17 +44,20 @@ public class CustomerProfileServiceImpl implements CustomerProfileService{
         String bearerToken = jwtAuthentication.extractJwtFromRequest(request);
         Integer tokenUserId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
         if(tokenUserId != null){
-            System.out.println("image url"+ updateCustomerProfileRequest.getProfilePicture());
-            String filePath = "event-organizer/"+updateCustomerProfileRequest.getEmail()+ "/";
-            String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, updateCustomerProfileRequest.getProfilePicture());
-
             CustomerEntity customerEntity = customerRepository.findById(updateCustomerProfileRequest.getId()).get();
             customerEntity.setName(updateCustomerProfileRequest.getName());
             customerEntity.setMobileNumber(updateCustomerProfileRequest.getMobileNumber());
             customerEntity.setGender(updateCustomerProfileRequest.getGender());
             customerEntity.setAge(updateCustomerProfileRequest.getAge());
             customerEntity.setCity(customerEntity.getCity());
-            customerEntity.setProfilePictureUrl(imageUrl);
+
+            String filePath = "event-organizer/"+updateCustomerProfileRequest.getEmail()+ "/";
+            if(updateCustomerProfileRequest.getProfilePicture() != null) {
+                String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, updateCustomerProfileRequest.getProfilePicture());
+                customerEntity.setProfilePictureUrl(imageUrl);
+            }
+
+
 
             customerRepository.save(customerEntity);
 

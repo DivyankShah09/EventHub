@@ -17,6 +17,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -63,6 +66,7 @@ public class EventServiceImpl implements EventService {
         Integer userId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
         if (userId != null) {
             Optional<EventEntity> event = eventRepository.findById(eventId);
+            System.out.println(event.get());
             return new HttpResponseSuccess<>(HttpStatus.OK.value(), "Event loaded successfully", event.get());
         } else {
             return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
@@ -92,12 +96,13 @@ public class EventServiceImpl implements EventService {
         if (userId != null) {
             String filePath = "event/"+eventOrganizer.get().getId()+"_"+eventOrganizer.get().getBusinessName()+"_"+eventRequest.getName().replace(" ", "_") + "/";
             String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, eventRequest.getImage());
+            System.out.println(eventRequest.getTime());
             EventEntity event = new EventEntity();
             event.setEventOrganizer(eventOrganizer.get());
             event.setName(eventRequest.getName());
             event.setDescription(eventRequest.getDescription());
             event.setDate(eventRequest.getDate());
-            event.setTime(eventRequest.getTime());
+            event.setTime(convertStringToTime(eventRequest.getTime()));
             event.setLocation(eventRequest.getLocation());
             event.setPrice(eventRequest.getPrice());
             event.setImageUrl(imageUrl);
@@ -118,6 +123,16 @@ public class EventServiceImpl implements EventService {
         } else {
             return new HttpResponseSuccess<EventEntity>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
                     null);
+        }
+    }
+    private static Time convertStringToTime(String timeString) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            java.util.Date parsedTime = sdf.parse(timeString);
+            return new Time(parsedTime.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

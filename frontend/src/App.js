@@ -13,6 +13,7 @@ import BookingHistory from "./pages/BookingHistory";
 import Footer from "./components/footer/Footer";
 import CustomerProfile from "./pages/CustomerProfile";
 import EventOrganizerProfile from "./pages/EventOrganizerProfile";
+import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   return (

@@ -4,14 +4,16 @@ import TextInput from "../components/input/TextInput";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import DatePickerInput from "../components/input/DatePickerInput";
+import TimePickerInput from "../components/input/TimePickerInput";
 
 const AddEvent = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [name, setName] = useState();
   const [description, setDescription] = useState();
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState("12:00");
   const [location, setLocation] = useState();
   const [price, setPrice] = useState();
   const [eventImage, setEventImage] = useState(
@@ -53,6 +55,7 @@ const AddEvent = () => {
       toast.error("Event not added.");
     }
   };
+
   return (
     <>
       <ToastContainer />
@@ -73,20 +76,13 @@ const AddEvent = () => {
             onChange={(value) => setDescription(value)}
             type="text"
           />
+
+          <DatePickerInput value={date} onChange={(value) => setDate(value)} />
+
+          <TimePickerInput value={time} onChange={(value) => setTime(value)} />
+
           <TextInput
-            placeholderText="Date (in \'YYYY-MM-DD\' format)"
-            value={date}
-            onChange={(value) => setDate(value)}
-            type="text"
-          />
-          <TextInput
-            placeholderText="Time (in \'HH:MM:SS\' format)"
-            value={time}
-            onChange={(value) => setTime(value)}
-            type="text"
-          />
-          <TextInput
-            placeholderText="Location "
+            placeholderText="Location"
             value={location}
             onChange={(value) => setLocation(value)}
             type="text"

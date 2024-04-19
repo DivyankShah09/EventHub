@@ -43,17 +43,20 @@ public class EventOrganizerProfileServiceImpl implements EventOrganizerProfileSe
     public HttpResponseSuccess<EventOrganizerEntity> updateEventOrganizerProfileDetails(UpdateEventOrganizerProfileRequest updateEventOrganizerProfileRequest, HttpServletRequest request) {
         String bearerToken = jwtAuthentication.extractJwtFromRequest(request);
         Integer tokenUserId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
+        System.out.println(tokenUserId);
         if(tokenUserId != null){
-            System.out.println("image url"+ updateEventOrganizerProfileRequest.getProfilePicture());
-            String filePath = "event-organizer/"+updateEventOrganizerProfileRequest.getEmail()+ "/";
-            String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, updateEventOrganizerProfileRequest.getProfilePicture());
-
             EventOrganizerEntity eventOrganizerEntity = eventOrganizerRepository.findById(updateEventOrganizerProfileRequest.getId()).get();
             eventOrganizerEntity.setName(updateEventOrganizerProfileRequest.getName());
             eventOrganizerEntity.setMobileNumber(updateEventOrganizerProfileRequest.getMobileNumber());
             eventOrganizerEntity.setBusinessName(updateEventOrganizerProfileRequest.getBusinessName());
-            eventOrganizerEntity.setProfilePictureUrl(imageUrl);
 
+
+            String filePath = "event-organizer/"+updateEventOrganizerProfileRequest.getEmail()+ "/";
+            if(updateEventOrganizerProfileRequest.getProfilePicture() != null) {
+                System.out.println("image: "+updateEventOrganizerProfileRequest.getProfilePicture());
+                String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, updateEventOrganizerProfileRequest.getProfilePicture());
+                eventOrganizerEntity.setProfilePictureUrl(imageUrl);
+            }
             eventOrganizerRepository.save(eventOrganizerEntity);
 
             return new HttpResponseSuccess<EventOrganizerEntity>(HttpStatus.OK.value(), "User details updated successfully",

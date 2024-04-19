@@ -8,15 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendar,
   faClockFour,
-  faDollar,
-  faLocation,
-  faLocationArrow,
-  faLocationCrosshairs,
+  faEnvelope,
   faLocationDot,
-  faMapLocation,
-  faMoneyBill,
   faMoneyBill1,
-  faMoneyCheck,
+  faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 
 const EventDetails = () => {
@@ -36,6 +31,7 @@ const EventDetails = () => {
           },
         });
         setEvent(response.data.data);
+        console.log(event.eventOrganizer);
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -54,7 +50,7 @@ const EventDetails = () => {
 
     // Create a payment intent on the backend
     const response = await axios.post(
-      `http://ec2-18-207-178-206.compute-1.amazonaws.com/api/bookings/save-booking`,
+      `${process.env.REACT_APP_BACKEND_URL}api/bookings/save-booking`,
       {
         eventId: id.split("=")[1],
         amount: noOfTickets * event.price,
@@ -67,7 +63,7 @@ const EventDetails = () => {
         },
       }
     );
-    console.log(response.data.statusMessage);
+    console.log(response.data);
     if (response.data.statusMessage === "Event booked successfully") {
       toast.success("Event Registration successful.");
       setNoOfTickets("");
@@ -105,6 +101,18 @@ const EventDetails = () => {
     return `${weekday}, ${month} ${day}`;
   };
 
+  const formatTime = (timeString = "00:00") => {
+    const [hours, minutes, seconds] = timeString.split(":");
+
+    // Convert hours to 12-hour format
+    let formattedHours = parseInt(hours, 10);
+    const amPm = formattedHours >= 12 ? "PM" : "AM";
+    formattedHours = formattedHours % 12 || 12;
+
+    // Return the formatted time string
+    return `${formattedHours}:${minutes} ${amPm}`;
+  };
+
   return (
     <>
       <ToastContainer />
@@ -115,43 +123,68 @@ const EventDetails = () => {
             src={event?.imageUrl}
             alt={event?.name}
           />
+
           <div>
             <p>{formatDate(event?.date)}</p>
           </div>
           <h1 className="text-4xl font-bold mb-4">{event?.name}</h1>
 
-          <div className="mt-5">
-            <h2 className="text-2xl font-bold mb-2">Date and time</h2>
-            <ul>
-              <li>
-                <FontAwesomeIcon icon={faCalendar} />{" "}
-                {formatDate(event?.date) +
-                  ", " +
-                  new Date(event?.date).getFullYear()}
-              </li>
-              <li>
-                <FontAwesomeIcon icon={faClockFour} /> {event?.time}
-              </li>
-            </ul>
-          </div>
+          <div className="grid md:grid-cols-2">
+            <div>
+              <div className="mt-5">
+                <h2 className="text-2xl font-bold mb-2">Date and time</h2>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faCalendar} />{" "}
+                    {formatDate(event?.date) +
+                      ", " +
+                      new Date(event?.date).getFullYear()}
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faClockFour} />{" "}
+                    {formatTime(event?.time)}
+                  </li>
+                </ul>
+              </div>
 
-          <div className="mt-5">
-            <h2 className="text-2xl font-bold mb-2">Location</h2>
-            <p>
-              <FontAwesomeIcon icon={faLocationDot} /> {event?.location}
-            </p>
-          </div>
+              <div className="mt-5">
+                <h2 className="text-2xl font-bold mb-2">Location</h2>
+                <p>
+                  <FontAwesomeIcon icon={faLocationDot} /> {event?.location}
+                </p>
+              </div>
 
-          <div className="mt-5">
-            <h2 className="text-2xl font-bold mb-2">Refund Policy</h2>
-            <p>No refund policy</p>
-          </div>
-
-          <div className="mt-5">
-            <h2 className="text-2xl font-bold mb-2">Price</h2>
-            <p>
-              <FontAwesomeIcon icon={faMoneyBill1} /> {"$" + event?.price}
-            </p>
+              <div className="mt-5">
+                <h2 className="text-2xl font-bold mb-2">Price</h2>
+                <p>
+                  <FontAwesomeIcon icon={faMoneyBill1} /> {"$" + event?.price}
+                </p>
+              </div>
+            </div>
+            <div>
+              {userType === "Event Organizer" ? (
+                ""
+              ) : (
+                <div className="mt-5">
+                  <h2 className="text-2xl font-bold mb-2">
+                    Register For Event
+                  </h2>
+                  <div className="w-full md:w-1/2">
+                    <TextInput
+                      placeholderText="Number of tickets"
+                      value={noOfTickets}
+                      onChange={(value) => setNoOfTickets(value)}
+                      type="number"
+                    />
+                    <SubmitButton
+                      className="h-12"
+                      buttonName="Register for Event"
+                      callButtonFunction={callBookEvent}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="mt-5">
@@ -161,28 +194,29 @@ const EventDetails = () => {
 
           <div className="mt-5">
             <h2 className="text-2xl font-bold mb-2">Organized By</h2>
-            <div className="bg-[#d5e8ee]">
-              <p>event organizer details here</p>
+            <div className="bg-[#d5e8ee] w-fit flex p-3 rounded-2xl shadow-sm">
+              <div className="flex-1 p-2">
+                <img
+                  src={event?.eventOrganizer.profilePictureUrl}
+                  alt="Profile"
+                  className="mx-auto h-[80px] w-[80px] rounded-[6.5rem] object-cover"
+                />
+              </div>
+              <div className="p-2">
+                <h3 className="text-xl font-bold mb-1">
+                  {event?.eventOrganizer.businessName}
+                </h3>
+                <p>
+                  <FontAwesomeIcon icon={faPhone} />{" "}
+                  {event?.eventOrganizer.mobileNumber}
+                </p>
+                <p>
+                  <FontAwesomeIcon icon={faEnvelope} />{" "}
+                  {event?.eventOrganizer.email}
+                </p>
+              </div>
             </div>
           </div>
-
-          {userType === "Event Organizer" ? (
-            ""
-          ) : (
-            <div className="grid grid-cols-2 gap-4 mx-auto w-full">
-              <TextInput
-                placeholderText="Number of tickets"
-                value={noOfTickets}
-                onChange={(value) => setNoOfTickets(value)}
-                type="number"
-              />
-              <SubmitButton
-                className="h-12"
-                buttonName="Register for Event"
-                callButtonFunction={callBookEvent}
-              />
-            </div>
-          )}
         </div>
       </div>
     </>
