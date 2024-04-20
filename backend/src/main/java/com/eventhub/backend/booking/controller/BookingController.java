@@ -40,5 +40,4 @@ public class BookingController {
     public HttpResponseSuccess<?> deleteBookingById(@RequestParam(name = "id") Integer id, HttpServletRequest request) {
         return bookingService.deleteBookingById(id, request);
     }
-
 }

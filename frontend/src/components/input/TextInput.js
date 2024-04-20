@@ -18,6 +18,7 @@ const TextInput = ({
           onChange && onChange(e.target.value);
         }}
         disabled={disabled}
+        min={type === "number" ? 0 : undefined}
       ></input>
     </div>
   );

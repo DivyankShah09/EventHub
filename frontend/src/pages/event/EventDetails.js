@@ -38,7 +38,7 @@ const EventDetails = () => {
     };
 
     getEvent();
-  });
+  }, []);
 
   const callBookEvent = async () => {
     const currentDate = new Date();
@@ -48,7 +48,7 @@ const EventDetails = () => {
     const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Month starts from 0, so add 1
     const day = String(currentDate.getDate()).padStart(2, "0");
 
-    const backend_payment_url = `${process.env.REACT_APP_BACKEND_URL}api/payments/save-payment`;
+    const backend_make_payment_url = `${process.env.REACT_APP_BACKEND_URL}api/payments/make-payment`;
     const backend_booking_url = `${process.env.REACT_APP_BACKEND_URL}api/bookings/save-booking`;
 
     // Create a payment intent on the backend
@@ -71,26 +71,20 @@ const EventDetails = () => {
 
     const paymentData = {
       bookingId: bookingData.id,
-      user: bookingData.user,
-      event: bookingData.event,
       date: bookingData.date,
-      quantity: bookingData.quantity,
       totalPrice: bookingData.totalPrice,
     };
-    const paymentResponse = await axios.post(backend_payment_url, paymentData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const paymentResponse = await axios.post(
+      backend_make_payment_url,
+      paymentData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const paymentUrl = paymentResponse.data.data.paymentUrl;
     window.location.href = paymentUrl;
-
-    console.log(paymentResponse);
-
-    if (response.data.statusMessage === "Event booked successfully") {
-      toast.success("Event Registration successful.");
-      setNoOfTickets("");
-    }
   };
 
   const formatDate = (dateString) => {
@@ -199,6 +193,7 @@ const EventDetails = () => {
                       value={noOfTickets}
                       onChange={(value) => setNoOfTickets(value)}
                       type="number"
+                      min="0"
                     />
                     <SubmitButton
                       className="h-min-12"

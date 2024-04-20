@@ -28,7 +28,7 @@ const BookingHistory = () => {
     };
 
     fetchBookings();
-  });
+  }, []);
 
   return (
     <>
