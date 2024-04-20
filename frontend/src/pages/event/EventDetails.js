@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import SubmitButton from "../components/button/SubmitButton";
-import TextInput from "../components/input/TextInput";
+import SubmitButton from "../../components/button/SubmitButton";
+import TextInput from "../../components/input/TextInput";
 import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -30,8 +30,8 @@ const EventDetails = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+        console.log(response);
         setEvent(response.data.data);
-        console.log(event.eventOrganizer);
       } catch (error) {
         console.error("Error fetching events:", error);
       }

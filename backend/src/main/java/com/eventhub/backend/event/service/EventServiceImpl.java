@@ -66,7 +66,6 @@ public class EventServiceImpl implements EventService {
         Integer userId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
         if (userId != null) {
             Optional<EventEntity> event = eventRepository.findById(eventId);
-            System.out.println(event.get());
             return new HttpResponseSuccess<>(HttpStatus.OK.value(), "Event loaded successfully", event.get());
         } else {
             return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
@@ -92,12 +91,16 @@ public class EventServiceImpl implements EventService {
         System.out.println(eventRequest);
         String bearerToken = jwtAuthentication.extractJwtFromRequest(request);
         Integer userId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
+
         Optional<EventOrganizerEntity> eventOrganizer = eventOrganizerRepository.findById(userId);
+        System.out.println(eventRequest.getId());
         if (userId != null) {
-            String filePath = "event/"+eventOrganizer.get().getId()+"_"+eventOrganizer.get().getBusinessName()+"_"+eventRequest.getName().replace(" ", "_") + "/";
-            String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, eventRequest.getImage());
-            System.out.println(eventRequest.getTime());
-            EventEntity event = new EventEntity();
+            EventEntity event;
+            if(eventRequest.getId() != null){
+                event = eventRepository.findById(eventRequest.getId()).get();
+            }else{
+                event = new EventEntity();
+            }
             event.setEventOrganizer(eventOrganizer.get());
             event.setName(eventRequest.getName());
             event.setDescription(eventRequest.getDescription());
@@ -105,12 +108,14 @@ public class EventServiceImpl implements EventService {
             event.setTime(convertStringToTime(eventRequest.getTime()));
             event.setLocation(eventRequest.getLocation());
             event.setPrice(eventRequest.getPrice());
-            event.setImageUrl(imageUrl);
-
+            if(eventRequest.getImage() != null){
+                String filePath = "event/"+eventOrganizer.get().getId()+"_"+eventOrganizer.get().getBusinessName()+"_"+eventRequest.getName().replace(" ", "_") + "/";
+                String imageUrl = s3CloudFront.uploadImageGetUrl(filePath, eventRequest.getImage());
+                event.setImageUrl(imageUrl);
+            }
             eventRepository.save(event);
 
             ArrayList<CustomerEntity> customerEntityArrayList = customerRepository.findByCity(event.getLocation());
-            System.out.println("customers: " + customerEntityArrayList);
             for (CustomerEntity customerEntity : customerEntityArrayList) {
                 String emailSubject = emailMessages.getNewEventEmailSubject(event.getLocation());
                 String emailMessage = emailMessages.getNewEventEmailMessage(customerEntity.getName(), event.getLocation(), event);

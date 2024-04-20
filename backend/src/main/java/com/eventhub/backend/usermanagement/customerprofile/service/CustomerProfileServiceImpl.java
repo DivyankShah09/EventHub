@@ -57,8 +57,6 @@ public class CustomerProfileServiceImpl implements CustomerProfileService{
                 customerEntity.setProfilePictureUrl(imageUrl);
             }
 
-
-
             customerRepository.save(customerEntity);
 
             return new HttpResponseSuccess<CustomerEntity>(HttpStatus.OK.value(), "User details updated successfully",

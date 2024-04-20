@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import TextInput from "../components/input/TextInput";
-import SubmitButton from "../components/button/SubmitButton";
+import TextInput from "../../components/input/TextInput";
+import SubmitButton from "../../components/button/SubmitButton";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import SelectInput from "../components/input/SelectInput";
+import SelectInput from "../../components/input/SelectInput";
 
 const Login = () => {
   const [email, setEmail] = useState("");

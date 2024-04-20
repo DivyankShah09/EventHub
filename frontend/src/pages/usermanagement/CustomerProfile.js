@@ -1,43 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import TextInput from "../components/input/TextInput";
-import SubmitButton from "../components/button/SubmitButton";
+import TextInput from "../../components/input/TextInput";
+import SubmitButton from "../../components/button/SubmitButton";
 import { ToastContainer, toast } from "react-toastify";
 
-const EventOrganizerProfile = () => {
+const CustomerProfile = () => {
   const { id } = useParams();
   const token = localStorage.getItem("token");
   const [profilePicture, setProfilePicture] = useState(
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
   );
   const [name, setName] = useState();
-  const [businessName, setBusinessName] = useState();
   const [mobileNumber, setMobileNumber] = useState();
+  const [gender, setGender] = useState();
+  const [age, setAge] = useState();
+  const [city, setCity] = useState();
   const [email, setEmail] = useState();
-  const backend_event_organizer_profile_details_url = `${process.env.REACT_APP_BACKEND_URL}api/event-organizer-profile?${id}`;
-  const backend_event_organizer_profile_update_details = `${process.env.REACT_APP_BACKEND_URL}api/event-organizer-profile/update`;
+  const backend_customer_profile_details_url = `${process.env.REACT_APP_BACKEND_URL}api/customer-profile?${id}`;
+  const backend_customer_profile_update_details = `${process.env.REACT_APP_BACKEND_URL}api/customer-profile/update`;
 
   const handleProfilePictureChange = (e) => {
     setProfilePicture(e.target.files[0]);
   };
 
   useEffect(() => {
-    const getEventOrganizersDetails = async () => {
+    const getCustomerDetails = async () => {
       try {
-        const response = await axios.get(
-          backend_event_organizer_profile_details_url,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(backend_customer_profile_details_url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         console.log(response);
 
         setName(response.data.data.name);
         setMobileNumber(response.data.data.mobileNumber);
-        setBusinessName(response.data.data.businessName);
+        setGender(response.data.data.gender);
+        setAge(response.data.data.age);
+        setCity(response.data.data.city);
         setEmail(response.data.data.email);
         setProfilePicture(response.data.data.profilePictureUrl);
       } catch (error) {
@@ -45,7 +46,7 @@ const EventOrganizerProfile = () => {
       }
     };
 
-    getEventOrganizersDetails();
+    getCustomerDetails();
   }, [id]);
 
   const callUpdateProfile = async () => {
@@ -57,10 +58,12 @@ const EventOrganizerProfile = () => {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("mobileNumber", mobileNumber);
-    formData.append("businessName", businessName);
+    formData.append("gender", gender);
+    formData.append("age", age);
+    formData.append("city", city);
 
     const response = await axios.post(
-      backend_event_organizer_profile_update_details,
+      backend_customer_profile_update_details,
       formData,
       {
         headers: {
@@ -70,8 +73,10 @@ const EventOrganizerProfile = () => {
     );
     console.log("response: ", response);
     setName(response.data.data.name);
-    setBusinessName(response.data.data.businessName);
     setMobileNumber(response.data.data.mobileNumber);
+    setGender(response.data.data.gender);
+    setAge(response.data.data.age);
+    setCity(response.data.data.city);
     setEmail(response.data.data.email);
     setProfilePicture(response.data.data.profilePictureUrl);
     toast.success("Profile Updated Successfully");
@@ -117,17 +122,6 @@ const EventOrganizerProfile = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="businessName" className="block font-medium">
-                Business Name
-              </label>
-              <TextInput
-                placeholderText="Name"
-                value={businessName}
-                onChange={(value) => setBusinessName(value)}
-                type="text"
-              />
-            </div>
-            <div className="flex flex-col">
               <label htmlFor="email" className="block font-medium">
                 Email
               </label>
@@ -150,6 +144,39 @@ const EventOrganizerProfile = () => {
                 type="text"
               />
             </div>
+            <div className="flex flex-col">
+              <label htmlFor="gender" className="block font-medium">
+                Gender
+              </label>
+              <TextInput
+                placeholderText="Gender"
+                value={gender}
+                onChange={(value) => setGender(value)}
+                type="text"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="age" className="block font-medium">
+                Age
+              </label>
+              <TextInput
+                placeholderText="Age"
+                value={age}
+                onChange={(value) => setAge(value)}
+                type="text"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="city" className="block font-medium">
+                City
+              </label>
+              <TextInput
+                placeholderText="City"
+                value={city}
+                onChange={(value) => setCity(value)}
+                type="text"
+              />
+            </div>
 
             <SubmitButton
               buttonName="Save"
@@ -162,4 +189,4 @@ const EventOrganizerProfile = () => {
   );
 };
 
-export default EventOrganizerProfile;
+export default CustomerProfile;

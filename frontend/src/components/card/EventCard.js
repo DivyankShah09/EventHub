@@ -1,7 +1,18 @@
 import React from "react";
 import SubmitButton from "../button/SubmitButton";
+import { Link, useNavigate } from "react-router-dom";
 
-const EventCard = ({ imageUrl, name, date, time, location, price }) => {
+const EventCard = ({
+  id,
+  imageUrl,
+  name,
+  date,
+  time,
+  location,
+  price,
+  link,
+}) => {
+  const userType = localStorage.getItem("userType");
   const callButtonFunction = () => {};
   return (
     <>
@@ -13,10 +24,23 @@ const EventCard = ({ imageUrl, name, date, time, location, price }) => {
           <p className="text-gray-700 text-base mb-2">Time: {time}</p>
           <p className="text-gray-700 text-base mb-2">Location: {location}</p>
           <p className="text-gray-700 text-base mb-2">Price: {price}</p>
-          <SubmitButton
-            buttonName="View Details"
-            callButtonFunction={callButtonFunction}
-          />
+          <Link to={link}>
+            <SubmitButton
+              buttonName="View Details"
+              callButtonFunction={callButtonFunction}
+            />
+          </Link>
+
+          {userType === "Event Organizer" ? (
+            <Link to={`/edit-event/id=${id}`}>
+              <SubmitButton
+                buttonName="Edit Details"
+                callButtonFunction={callButtonFunction}
+              />
+            </Link>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

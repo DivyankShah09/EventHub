@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import EventCard from "../components/card/EventCard";
-import TextInput from "../components/input/TextInput";
+import EventCard from "../../components/card/EventCard";
+import TextInput from "../../components/input/TextInput";
 
 const EventList = () => {
   const navigate = useNavigate();
@@ -78,17 +78,19 @@ const EventList = () => {
 
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-4">
           {filteredEvents?.map((event) => (
-            <Link key={event.id} to={`/event-details/id=${event.id}`}>
+            <div>
               {console.log(new Date(event.date) < new Date(todayDate))}
               <EventCard
+                id={event.id}
                 imageUrl={event.imageUrl}
                 name={event.name}
                 date={event.date}
                 time={event.time}
                 location={event.location}
                 price={event.price}
+                link={`/event-details/id=${event.id}`}
               />
-            </Link>
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import BookingCard from "../components/card/BookingCard";
+import BookingCard from "../../components/card/BookingCard";
 import { useNavigate } from "react-router-dom";
 
 const BookingHistory = () => {

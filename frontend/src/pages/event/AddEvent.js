@@ -1,13 +1,16 @@
-import { useState } from "react";
-import SubmitButton from "../components/button/SubmitButton";
-import TextInput from "../components/input/TextInput";
+import { useState, useEffect } from "react";
+import SubmitButton from "../../components/button/SubmitButton";
+import { useParams } from "react-router-dom";
+import TextInput from "../../components/input/TextInput";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import DatePickerInput from "../components/input/DatePickerInput";
-import TimePickerInput from "../components/input/TimePickerInput";
+import DatePickerInput from "../../components/input/DatePickerInput";
+import TimePickerInput from "../../components/input/TimePickerInput";
 
 const AddEvent = () => {
+  const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const [name, setName] = useState();
@@ -19,10 +22,36 @@ const AddEvent = () => {
   const [eventImage, setEventImage] = useState(
     "https://cdn.pixabay.com/photo/2021/10/11/00/59/upload-6699084_1280.png"
   );
+  const backend_event_details_url = `${process.env.REACT_APP_BACKEND_URL}api/events?${id}`;
 
   const handleEventPictureChange = (e) => {
     setEventImage(e.target.files[0]);
   };
+
+  let event;
+  useEffect(() => {
+    const getEvent = async () => {
+      try {
+        const response = await axios.get(backend_event_details_url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(response);
+        event = response.data.data;
+        setName(event.name);
+        setDescription(event.description);
+        setDate(event.date);
+        setTime(event.time);
+        setLocation(event.location);
+        setPrice(event.price);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    getEvent();
+  }, [id]);
 
   const callAddEvent = async () => {
     if (token === null) {
@@ -31,7 +60,14 @@ const AddEvent = () => {
     }
     const formData = new FormData();
     console.log("FormData: ", formData);
-    formData.append("image", eventImage);
+    if (id) {
+      formData.append("id", id.split("=")[1]);
+      if (typeof eventImage !== "string") {
+        formData.append("image", eventImage);
+      }
+    } else {
+      formData.append("image", eventImage);
+    }
     formData.append("name", name);
     formData.append("description", description);
     formData.append("date", date);
@@ -114,7 +150,7 @@ const AddEvent = () => {
             />
           </div>
           <SubmitButton
-            buttonName="Add Event"
+            buttonName={id ? "Edit Event" : "Add Event"}
             callButtonFunction={callAddEvent}
           />
         </div>
