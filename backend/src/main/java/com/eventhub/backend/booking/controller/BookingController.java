@@ -15,6 +15,7 @@ public class BookingController {
     @Autowired
     BookingService bookingService;
 
+
     @PostMapping("/save-booking")
     public HttpResponseSuccess<BookingEntity> saveBooking(@RequestBody BookingRequest bookingRequest, HttpServletRequest request) {
         return bookingService.saveBooking(bookingRequest, request);
@@ -29,4 +30,6 @@ public class BookingController {
     public HttpResponseSuccess<?> getBookingByEvent(@RequestParam(name = "event-id") Integer eventId, HttpServletRequest request) {
         return bookingService.getBookingByEvent(eventId, request);
     }
+
+
 }

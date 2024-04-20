@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -15,6 +15,8 @@ import CustomerProfile from "./pages/usermanagement/CustomerProfile";
 import EventOrganizerProfile from "./pages/usermanagement/EventOrganizerProfile";
 import "react-datepicker/dist/react-datepicker.css";
 import Home from "./pages/home/Home";
+import PaymentSuccess from "./components/payment/PaymentSuccess";
+import PaymentFailure from "./components/payment/PaymentFailure";
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
             path="/event-organizer-profile/:id"
             element={<EventOrganizerProfile />}
           />
+          <Route path="/payment-success/:id" element={<PaymentSuccess />} />
+          <Route path="/payment-failure/:id" element={<PaymentFailure />} />
         </Routes>
         <Footer />
       </Router>

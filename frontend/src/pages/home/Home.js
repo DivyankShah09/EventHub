@@ -26,7 +26,12 @@ const Home = () => {
       try {
         const response = await axios.get(backend_all_events_url);
         console.log(response.data.data);
-        setEvents(response.data.data);
+
+        const filteredEvents = response.data.data.filter(
+          (event) => new Date(event.date) >= new Date(todayDate)
+        );
+
+        setEvents(filteredEvents);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -34,6 +39,7 @@ const Home = () => {
 
     fetchEvents();
   }, []);
+
   return (
     <>
       <section
@@ -69,7 +75,6 @@ const Home = () => {
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-4">
           {event?.slice(0, 8).map((event) => (
             <div>
-              {console.log(new Date(event.date) < new Date(todayDate))}
               <EventCard
                 id={event.id}
                 imageUrl={event.imageUrl}

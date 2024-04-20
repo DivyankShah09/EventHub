@@ -89,6 +89,11 @@
             <artifactId>aws-java-sdk-cloudfront</artifactId>
             <version>1.12.155</version>
         </dependency>
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>20.62.0</version>
+        </dependency>
 
 
     </dependencies>

@@ -30,7 +30,7 @@ const EventDetails = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(response);
+        // console.log(response);
         setEvent(response.data.data);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -48,9 +48,12 @@ const EventDetails = () => {
     const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Month starts from 0, so add 1
     const day = String(currentDate.getDate()).padStart(2, "0");
 
+    const backend_payment_url = `${process.env.REACT_APP_BACKEND_URL}api/payments/save-payment`;
+    const backend_booking_url = `${process.env.REACT_APP_BACKEND_URL}api/bookings/save-booking`;
+
     // Create a payment intent on the backend
     const response = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}api/bookings/save-booking`,
+      backend_booking_url,
       {
         eventId: id.split("=")[1],
         amount: noOfTickets * event.price,
@@ -63,7 +66,27 @@ const EventDetails = () => {
         },
       }
     );
-    console.log(response.data);
+    const bookingData = response.data.data;
+    console.log("bd: ", bookingData);
+
+    const paymentData = {
+      bookingId: bookingData.id,
+      user: bookingData.user,
+      event: bookingData.event,
+      date: bookingData.date,
+      quantity: bookingData.quantity,
+      totalPrice: bookingData.totalPrice,
+    };
+    const paymentResponse = await axios.post(backend_payment_url, paymentData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const paymentUrl = paymentResponse.data.data.paymentUrl;
+    window.location.href = paymentUrl;
+
+    console.log(paymentResponse);
+
     if (response.data.statusMessage === "Event booked successfully") {
       toast.success("Event Registration successful.");
       setNoOfTickets("");

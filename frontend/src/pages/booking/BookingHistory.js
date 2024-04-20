@@ -21,7 +21,7 @@ const BookingHistory = () => {
           },
         });
         console.log(response.data.data);
-        setBookingList(response.data.data);
+        setBookingList(response.data.data.reverse());
       } catch (error) {
         console.error("Error fetching users:", error);
       }
