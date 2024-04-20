@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import SubmitButton from "../../components/button/SubmitButton";
 import TextInput from "../../components/input/TextInput";
-import { ToastContainer, toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendar,
@@ -133,7 +132,6 @@ const EventDetails = () => {
 
   return (
     <>
-      <ToastContainer />
       <div className="my-20 w-full px-10">
         <div className="w-full mx-auto p-8 rounded-lg">
           <img
