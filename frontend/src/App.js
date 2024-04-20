@@ -14,6 +14,7 @@ import Footer from "./components/footer/Footer";
 import CustomerProfile from "./pages/usermanagement/CustomerProfile";
 import EventOrganizerProfile from "./pages/usermanagement/EventOrganizerProfile";
 import "react-datepicker/dist/react-datepicker.css";
+import Home from "./pages/home/Home";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route exact path="/" element={<EventList />} />
+          <Route exact path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/event-list" element={<EventList />} />

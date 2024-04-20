@@ -177,7 +177,7 @@ const EventDetails = () => {
                       type="number"
                     />
                     <SubmitButton
-                      className="h-12"
+                      className="h-min-12"
                       buttonName="Register for Event"
                       callButtonFunction={callBookEvent}
                     />

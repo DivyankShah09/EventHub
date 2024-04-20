@@ -7,7 +7,7 @@ import com.eventhub.backend.utils.httpresponse.HttpResponseSuccess;
 import javax.servlet.http.HttpServletRequest;
 
 public interface EventService {
-    HttpResponseSuccess<?> getAllEvents(HttpServletRequest request);
+    HttpResponseSuccess<?> getAllEvents();
 
     HttpResponseSuccess<?> getEventByEventId(HttpServletRequest request, Integer eventId);
 

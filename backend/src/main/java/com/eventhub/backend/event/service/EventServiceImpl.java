@@ -48,16 +48,11 @@ public class EventServiceImpl implements EventService {
     EventOrganizerRepository eventOrganizerRepository;
 
     @Override
-    public HttpResponseSuccess<?> getAllEvents(HttpServletRequest request) {
-        String bearerToken = jwtAuthentication.extractJwtFromRequest(request);
-        Integer userId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
-        if (userId != null) {
+    public HttpResponseSuccess<?> getAllEvents() {
+
             ArrayList<EventEntity> eventList = eventRepository.findAll();
             return new HttpResponseSuccess<>(HttpStatus.OK.value(), "Events loaded successfully", eventList);
-        } else {
-            return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
-                    null);
-        }
+
     }
 
     @Override

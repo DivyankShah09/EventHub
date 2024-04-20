@@ -19,8 +19,8 @@ public class EventController {
     EventService eventService;
 
     @GetMapping()
-    public HttpResponseSuccess<?> getAllEvents(HttpServletRequest request) {
-        return eventService.getAllEvents(request);
+    public HttpResponseSuccess<?> getAllEvents() {
+        return eventService.getAllEvents();
     }
 
     @GetMapping(params = {"id"})
