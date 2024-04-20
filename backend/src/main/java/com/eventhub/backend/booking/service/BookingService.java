@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 public interface BookingService {
     HttpResponseSuccess<BookingEntity> saveBooking(BookingRequest bookingRequest, HttpServletRequest request);
 
+    HttpResponseSuccess<BookingEntity> getBookingById(HttpServletRequest request, Integer bookingId);
+
     HttpResponseSuccess<?> getBookingByUser(HttpServletRequest request);
 
     HttpResponseSuccess<?> getBookingByEvent(Integer eventId, HttpServletRequest request);
+
+    HttpResponseSuccess<?> deleteBookingById(Integer id, HttpServletRequest request);
 }

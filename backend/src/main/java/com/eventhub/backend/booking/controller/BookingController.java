@@ -21,6 +21,11 @@ public class BookingController {
         return bookingService.saveBooking(bookingRequest, request);
     }
 
+    @GetMapping()
+    public HttpResponseSuccess<?> getBookingById(HttpServletRequest request) {
+        return bookingService.getBookingByUser(request);
+    }
+
     @GetMapping("/user-id")
     public HttpResponseSuccess<?> getBookingByUser(HttpServletRequest request) {
         return bookingService.getBookingByUser(request);
@@ -31,5 +36,9 @@ public class BookingController {
         return bookingService.getBookingByEvent(eventId, request);
     }
 
+    @DeleteMapping(params = {"id"})
+    public HttpResponseSuccess<?> deleteBookingById(@RequestParam(name = "id") Integer id, HttpServletRequest request) {
+        return bookingService.deleteBookingById(id, request);
+    }
 
 }

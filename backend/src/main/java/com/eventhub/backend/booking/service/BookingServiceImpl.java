@@ -1,12 +1,12 @@
 package com.eventhub.backend.booking.service;
 
-import com.eventhub.backend.usermanagement.common.entity.CustomerEntity;
-import com.eventhub.backend.usermanagement.common.repository.CustomerRepository;
 import com.eventhub.backend.booking.entity.BookingEntity;
 import com.eventhub.backend.booking.repository.BookingRepository;
 import com.eventhub.backend.booking.request.BookingRequest;
 import com.eventhub.backend.event.entity.EventEntity;
 import com.eventhub.backend.event.repository.EventRepository;
+import com.eventhub.backend.usermanagement.common.entity.CustomerEntity;
+import com.eventhub.backend.usermanagement.common.repository.CustomerRepository;
 import com.eventhub.backend.utils.awsemailservice.EmailMessages;
 import com.eventhub.backend.utils.awsemailservice.SendEmailToSubscriber;
 import com.eventhub.backend.utils.httpresponse.HttpResponseSuccess;
@@ -59,7 +59,7 @@ public class BookingServiceImpl implements BookingService {
                 bookingEntity.setTotalPrice(Integer.valueOf(event.get().getPrice()) * bookingRequest.getQuantity());
                 System.out.println("booking entity date: " + bookingEntity.getDate());
                 BookingEntity savedBookingEntity = bookingRepository.save(bookingEntity);
-                
+
 
                 String emailSubject = emailMessages.getBookingEmailSubject();
 
@@ -72,6 +72,21 @@ public class BookingServiceImpl implements BookingService {
                 return new HttpResponseSuccess<>(HttpStatus.BAD_REQUEST.value(), "Event booking closed",
                         null);
             }
+        } else {
+            return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
+                    null);
+        }
+    }
+
+    @Override
+    public HttpResponseSuccess<BookingEntity> getBookingById(HttpServletRequest request, Integer bookingId) {
+        String bearerToken = jwtAuthentication.extractJwtFromRequest(request);
+        Integer userId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
+
+        if (userId != null) {
+            Optional<BookingEntity> bookingEntity = bookingRepository.findById(bookingId);
+            return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
+                    bookingEntity.get());
         } else {
             return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
                     null);
@@ -100,6 +115,21 @@ public class BookingServiceImpl implements BookingService {
             ArrayList<BookingEntity> bookingList = bookingRepository.findByEventId(eventId);
 
             return new HttpResponseSuccess<>(HttpStatus.OK.value(), "Event booked successfully", bookingList);
+        } else {
+            return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
+                    null);
+        }
+    }
+
+    @Override
+    public HttpResponseSuccess<?> deleteBookingById(Integer id, HttpServletRequest request) {
+        String bearerToken = jwtAuthentication.extractJwtFromRequest(request);
+        Integer userId = jwtAuthentication.validateJWTTokenAndGetUserId(bearerToken);
+        if (userId != null) {
+            BookingEntity bookingEntity = bookingRepository.findById(id).get();
+            bookingRepository.delete(bookingEntity);
+
+            return new HttpResponseSuccess<>(HttpStatus.OK.value(), "Booking deleted successfully", "booking deleted");
         } else {
             return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
                     null);

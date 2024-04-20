@@ -15,8 +15,8 @@ import CustomerProfile from "./pages/usermanagement/CustomerProfile";
 import EventOrganizerProfile from "./pages/usermanagement/EventOrganizerProfile";
 import "react-datepicker/dist/react-datepicker.css";
 import Home from "./pages/home/Home";
-import PaymentSuccess from "./components/payment/PaymentSuccess";
-import PaymentFailure from "./components/payment/PaymentFailure";
+import PaymentSuccess from "./pages/payment/PaymentSuccess";
+import PaymentFailure from "./pages/payment/PaymentFailure";
 
 function App() {
   return (

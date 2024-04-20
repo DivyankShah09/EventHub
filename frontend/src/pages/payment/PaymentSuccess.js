@@ -20,8 +20,9 @@ const PaymentSuccess = () => {
   }, [count, navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-3xl font-bold mb-4">Booking Success!</h1>
+    <div className="flex flex-col items-center justify-center h-[80vh]">
+      <h1 className="text-3xl font-bold mb-4">Payment successful!</h1>
+      <p className="text-lg mb-2">Your booking id is {id.split("=")[1]}</p>
       <p className="text-lg mb-2">
         You will be redirected to booking history in {count} seconds.
       </p>

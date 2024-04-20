@@ -38,7 +38,7 @@ const EventDetails = () => {
     };
 
     getEvent();
-  }, [id]);
+  });
 
   const callBookEvent = async () => {
     const currentDate = new Date();
@@ -133,6 +133,7 @@ const EventDetails = () => {
     formattedHours = formattedHours % 12 || 12;
 
     // Return the formatted time string
+    console.log(seconds);
     return `${formattedHours}:${minutes} ${amPm}`;
   };
 
