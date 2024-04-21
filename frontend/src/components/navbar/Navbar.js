@@ -23,6 +23,12 @@ const Navbar = () => {
       link: storedUserType === "Event Organizer" ? "/add-event" : "/history",
     },
   ];
+  if (storedUserType === "Event Organizer") {
+    Links.push({
+      name: "ANALYTICS",
+      link: `/event-organizer-analytics/id=${userId}`,
+    });
+  }
 
   let [open, setOpen] = useState(false);
 

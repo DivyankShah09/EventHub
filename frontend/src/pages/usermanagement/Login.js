@@ -36,7 +36,7 @@ const Login = () => {
 
       response.data.data.userType === "User"
         ? navigate("/event-list")
-        : navigate("/my-events");
+        : navigate(`/event-organizer-analytics/id=${response.data.data.id}`);
     }
   };
 

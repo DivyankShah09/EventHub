@@ -17,6 +17,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Home from "./pages/home/Home";
 import PaymentSuccess from "./pages/payment/PaymentSuccess";
 import PaymentFailure from "./pages/payment/PaymentFailure";
+import EventOrganizerAnalytics from "./pages/analytics/EventOrganizerAnalytics";
 
 function App() {
   return (
@@ -42,6 +43,10 @@ function App() {
           />
           <Route path="/payment-success/:id" element={<PaymentSuccess />} />
           <Route path="/payment-failure/:id" element={<PaymentFailure />} />
+          <Route
+            path="/event-organizer-analytics/:id"
+            element={<EventOrganizerAnalytics />}
+          />
         </Routes>
         <Footer />
       </Router>

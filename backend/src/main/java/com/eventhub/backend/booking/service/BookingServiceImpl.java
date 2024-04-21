@@ -85,7 +85,7 @@ public class BookingServiceImpl implements BookingService {
 
         if (userId != null) {
             Optional<BookingEntity> bookingEntity = bookingRepository.findById(bookingId);
-            return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
+            return new HttpResponseSuccess<>(HttpStatus.OK.value(), "Booking fetched",
                     bookingEntity.get());
         } else {
             return new HttpResponseSuccess<>(HttpStatus.UNAUTHORIZED.value(), "Unauthorized access",
