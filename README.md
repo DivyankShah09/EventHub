@@ -73,17 +73,17 @@ fosters connections, facilitates event discovery, and enhances the overall event
 
 - Open the root project and fire the below commands to install the project dependencies and start the application.
 
-```
-cd frontend
-```
+  ```
+  cd frontend
+  ```
 
-```
-npm install
-```
+  ```
+  npm install
+  ```
 
-```
-npm start
-```
+  ```
+  npm start
+  ```
 
 #### Backend
 
