@@ -13,30 +13,32 @@ const Login = () => {
   const navigate = useNavigate();
 
   const callLogin = async () => {
-    const backend_login_url = `api/users/login`;
-    const userData = {
-      email: email,
-      password: password,
-      userType: userType,
-    };
+    if (validate()) {
+      const backend_login_url = `api/users/login`;
+      const userData = {
+        email: email,
+        password: password,
+        userType: userType,
+      };
 
-    console.log("url: ", backend_login_url);
+      console.log("url: ", backend_login_url);
 
-    const response = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}api/users/login`,
-      userData
-    );
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}api/users/login`,
+        userData
+      );
 
-    if (response.data.statusMessage === "Invalid user credentials") {
-      toast.error("Invalid user credentials");
-    } else {
-      localStorage.setItem("token", response.data.data.jwtToken);
-      localStorage.setItem("userId", response.data.data.id);
-      localStorage.setItem("userType", response.data.data.userType);
+      if (response.data.statusMessage === "Invalid user credentials") {
+        toast.error("Invalid user credentials");
+      } else {
+        localStorage.setItem("token", response.data.data.jwtToken);
+        localStorage.setItem("userId", response.data.data.id);
+        localStorage.setItem("userType", response.data.data.userType);
 
-      response.data.data.userType === "User"
-        ? navigate("/event-list")
-        : navigate(`/event-organizer-analytics/id=${response.data.data.id}`);
+        response.data.data.userType === "User"
+          ? navigate("/event-list")
+          : navigate(`/event-organizer-analytics/id=${response.data.data.id}`);
+      }
     }
   };
 
