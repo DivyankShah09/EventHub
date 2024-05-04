@@ -108,5 +108,5 @@ fosters connections, facilitates event discovery, and enhances the overall event
 - To run the project
   - Make sure Mysql is running in the local system.
   - Make sure Maven is installed in the system and environment variables are set
-  - To run the project find a `SkyCompanionApplication` class and run that as a Java application
+  - To run the project find a `BackendApplication` class and run that as a Java application
   - Visit `localhost:8080` and check logs
