@@ -6,6 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import SelectInput from "../../components/input/SelectInput";
 const Signup = () => {
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,15}$/;
+  var nameRegex = /^[A-Za-z]+$/;
   const [name, setName] = useState("");
   const [businessName, setBusinessName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -25,45 +28,107 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const callSignUp = async () => {
-    const formData = new FormData();
-    formData.append("image", profileImage);
+    if (validate()) {
+      const formData = new FormData();
+      formData.append("image", profileImage);
+
+      if (userType === "User") {
+        formData.append("name", name);
+        formData.append("mobileNumber", mobileNumber);
+        formData.append("gender", gender);
+        formData.append("age", age);
+        formData.append("city", city);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("userType", userType);
+      } else {
+        formData.append("name", name);
+        formData.append("mobileNumber", mobileNumber);
+        formData.append("businessName", businessName);
+        formData.append("email", email);
+        formData.append("password", password);
+        formData.append("userType", userType);
+      }
+
+      const backend_signup_url = `${process.env.REACT_APP_BACKEND_URL}api/users/signup`;
+
+      console.log("backend url: ", backend_signup_url);
+
+      const response = await axios.post(backend_signup_url, formData);
+      console.log("response: ", response);
+
+      if (response.data.statusMessage === "User already exists") {
+        toast.error("User already exists");
+      } else {
+        localStorage.setItem("token", response.data.data.jwtToken);
+        localStorage.setItem("userId", response.data.data.id);
+        localStorage.setItem("userType", response.data.data.userType);
+
+        response.data.data.userType === "User"
+          ? navigate("/event-list")
+          : navigate(`/event-organizer-analytics/id=${response.data.data.id}`);
+      }
+    }
+  };
+
+  const validate = () => {
+    if (name === "") {
+      toast.error("Name is required");
+      return false;
+    } else if (!nameRegex.test(name)) {
+      toast.error("Name can only have alphabets");
+      return false;
+    } else if (!email) {
+      toast.error("Email is required");
+      return false;
+    } else if (!emailRegex.test(email)) {
+      toast.error("Email is not in valid format");
+      return false;
+    } else if (!userType || userType === "User Type") {
+      toast.error("Select User Type");
+      return false;
+    } else if (!password) {
+      toast.error("Password is required");
+      return false;
+    } else if (password.length < 7) {
+      toast.error("Minimum length of password should be 8 characters.");
+      return false;
+    } else if (!passwordRegex.test(password)) {
+      toast.error(
+        <div>
+          <p>Password must fullfil following conditions: </p>
+          <ul>
+            <li>Minimum 1 uppercase alphabet.</li>
+            <li>Minimum 1 lowercase alphabet.</li>
+            <li>Minimum 1 number.</li>
+            <li>Minimum 1 special character (!@#$%^&*).</li>
+          </ul>
+        </div>
+      );
+      return false;
+    } else if (!mobileNumber) {
+      toast.error("Mobile Number is required.");
+      return false;
+    }
 
     if (userType === "User") {
-      formData.append("name", name);
-      formData.append("mobileNumber", mobileNumber);
-      formData.append("gender", gender);
-      formData.append("age", age);
-      formData.append("city", city);
-      formData.append("email", email);
-      formData.append("password", password);
-      formData.append("userType", userType);
+      if (!city) {
+        toast.error("City is required.");
+        return false;
+      } else if (!age) {
+        toast.error("Age is required.");
+        return false;
+      } else if (!gender) {
+        toast.error("Gender is required.");
+        return false;
+      }
     } else {
-      formData.append("name", name);
-      formData.append("mobileNumber", mobileNumber);
-      formData.append("businessName", businessName);
-      formData.append("email", email);
-      formData.append("password", password);
-      formData.append("userType", userType);
+      if (!businessName) {
+        toast.error("Business Name is required.");
+        return false;
+      }
     }
-
-    const backend_signup_url = `${process.env.REACT_APP_BACKEND_URL}api/users/signup`;
-
-    console.log("backend url: ", backend_signup_url);
-
-    const response = await axios.post(backend_signup_url, formData);
-    console.log("response: ", response);
-
-    if (response.data.statusMessage === "User already exists") {
-      toast.error("User already exists");
-    } else {
-      localStorage.setItem("token", response.data.data.jwtToken);
-      localStorage.setItem("userId", response.data.data.id);
-      localStorage.setItem("userType", response.data.data.userType);
-
-      response.data.data.userType === "User"
-        ? navigate("/event-list")
-        : navigate(`/event-organizer-analytics/id=${response.data.data.id}`);
-    }
+    return true;
   };
 
   return (
@@ -99,7 +164,7 @@ const Signup = () => {
             placeholderText="Mobile Number"
             value={mobileNumber}
             onChange={(value) => setMobileNumber(value)}
-            type="text"
+            type="number"
           />
 
           {userType === "Event Organizer" ? (

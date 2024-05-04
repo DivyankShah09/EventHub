@@ -40,6 +40,21 @@ const Login = () => {
     }
   };
 
+  const validate = () => {
+    if (!email) {
+      toast.error("Email is required");
+      return false;
+    } else if (!password) {
+      toast.error("Email is required");
+      return false;
+    } else if (!userType || userType === "User Type") {
+      toast.error("Select User Type");
+      return false;
+    }
+
+    return true;
+  };
+
   return (
     <>
       <ToastContainer />
