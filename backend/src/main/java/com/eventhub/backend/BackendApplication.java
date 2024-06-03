@@ -36,13 +36,13 @@ public class BackendApplication {
 //        String snsTopicArn = jsonObject.get("snsTopicArn").toString();
 //        String bucketName = jsonObject.get("bucketName").toString();
 //        String cloudFrontDistributionId = jsonObject.get("cloudFrontDistributionId").toString();
-        String databaseUrl = "jdbc:mysql://localhost:3306/event_hub?allowPublicKeyRetrieval=true&useSSL=false";
-        String databaseUsername = "divyank";
-        String databasePassword = "div123!!!";
-        String jwtSecretKey = "xBrexmbxkkI3L0Dd8wY9EHjpYq6nqqYVOpUr1vtbVFHD9avKZtyfujRCndbcASasbJUZeceG62nacNtDrm3Q2oTDtnIjAcMXVZ";
+        String databaseUrl = "*********";
+        String databaseUsername = "*********";
+        String databasePassword = "*********";
+        String jwtSecretKey = "*********";
         String snsTopicArn = "";
-        String bucketName = "eventhub-event-image-bucket";
-        String cloudFrontDistributionId = "E24ONSGIU8SZ2P";
+        String bucketName = "*********";
+        String cloudFrontDistributionId = "*********";
 
         AwsDetailsConstants.AWS_ACCESS_KEY = awsAccessKey;
         AwsDetailsConstants.AWS_SECRET_KEY = awsSecretKey;
